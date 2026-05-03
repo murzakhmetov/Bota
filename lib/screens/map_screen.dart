@@ -389,9 +389,11 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
           if (isUnlocked) Positioned(
             right: -10,
             top: -10,
-            child: Opacity(
-              opacity: 0.15,
-              child: Text(loc.icon, style: const TextStyle(fontSize: 120)),
+            child: IgnorePointer(
+              child: Opacity(
+                opacity: 0.15,
+                child: Text(loc.icon, style: const TextStyle(fontSize: 120)),
+              ),
             ),
           ),
         ]),
