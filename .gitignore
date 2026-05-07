@@ -9,7 +9,6 @@ dist/
 .pub/
 .flutter-plugins
 .flutter-plugins-dependencies
-**/*.apk
 **/*.aab
 **/*.ipa
 .idea/
