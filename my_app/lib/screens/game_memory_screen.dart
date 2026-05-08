@@ -163,7 +163,6 @@ class _GameMemoryScreenState extends State<GameMemoryScreen>
     );
   }
 
-
   Widget _difficultySelector() {
     final p = context.watch<GameProvider>();
     return Scaffold(
@@ -345,7 +344,6 @@ class _GameMemoryScreenState extends State<GameMemoryScreen>
     );
   }
 
-
   Widget _header(GameProvider p) => Padding(
     padding: const EdgeInsets.all(12),
     child: Row(children: [
@@ -509,7 +507,6 @@ class _GameMemoryScreenState extends State<GameMemoryScreen>
       ),
     );
   }
-
 
   Widget _completeWidget(GameProvider p) {
     int stars = _getStars();

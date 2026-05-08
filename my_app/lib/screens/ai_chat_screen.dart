@@ -25,7 +25,6 @@ class _AiChatScreenState extends State<AiChatScreen> with TickerProviderStateMix
       vsync: this,
     )..repeat();
 
-    // Welcome message
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final p = context.read<GameProvider>();
       _messages.add(_ChatMessage(

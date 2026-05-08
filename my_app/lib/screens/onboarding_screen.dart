@@ -64,7 +64,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       return;
     }
     context.read<GameProvider>().completeOnboarding(name, _selectedAge, _selectedAvatar);
-    // Redeem referral code if entered
+
     final refCode = _referralController.text.trim();
     if (refCode.isNotEmpty) {
       context.read<GameProvider>().redeemReferralCode(refCode);
@@ -227,17 +227,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         Text(provider.t('Бұл сенің профильдегі суретің болады', 'Это будет твоя картинка в профиле'),
           style: const TextStyle(fontSize: 14, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
         const SizedBox(height: 24),
-        // Avatar grid 4x3
+
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4, mainAxisSpacing: 16, crossAxisSpacing: 16, childAspectRatio: 0.85,
           ),
-          itemCount: kAvatars.length,
+          itemCount: kTotalAvatars,
           itemBuilder: (_, i) {
             final isSelected = _selectedAvatar == i;
-            final avatar = kAvatars[i];
+            final name = isImageAvatar(i)
+                ? (provider.isRussian ? getImageAvatar(i)!.nameRu : getImageAvatar(i)!.nameKz)
+                : (provider.isRussian ? kAvatars[i].nameRu : kAvatars[i].nameKz);
             return GestureDetector(
               onTap: () => setState(() => _selectedAvatar = i),
               child: AnimatedContainer(
@@ -257,7 +259,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   CartoonAvatar(avatarIndex: i, size: 48, isSelected: isSelected),
                   const SizedBox(height: 4),
                   Text(
-                    provider.isRussian ? avatar.nameRu : avatar.nameKz,
+                    name,
                     style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700,
                       color: isSelected ? AppColors.primary : AppColors.textSecondary),
                     maxLines: 1, overflow: TextOverflow.ellipsis,
@@ -278,7 +280,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        // Show selected avatar instead of kambot
+
         CartoonAvatar(avatarIndex: _selectedAvatar, size: 100, showBorder: true, borderColor: AppColors.primary),
         const SizedBox(height: 12),
         Container(
@@ -307,7 +309,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
         const SizedBox(height: 24),
-        // Referral code field
+
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(

@@ -180,7 +180,7 @@ class _FriendsScreenState extends State<FriendsScreen> with TickerProviderStateM
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          // Referral banner
+
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
@@ -243,7 +243,6 @@ class _FriendsScreenState extends State<FriendsScreen> with TickerProviderStateM
           ),
           const SizedBox(height: 20),
 
-          // Referral link card
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
@@ -317,7 +316,6 @@ class _FriendsScreenState extends State<FriendsScreen> with TickerProviderStateM
           ),
           const SizedBox(height: 16),
 
-          // Stats cards
           Row(
             children: [
               Expanded(
@@ -341,7 +339,6 @@ class _FriendsScreenState extends State<FriendsScreen> with TickerProviderStateM
           ),
           const SizedBox(height: 20),
 
-          // Simulate invite button (for demo)
           GestureDetector(
             onTap: () {
               p.inviteFriend();
@@ -426,10 +423,10 @@ class _FriendsScreenState extends State<FriendsScreen> with TickerProviderStateM
     return Column(
       children: [
         const SizedBox(height: 16),
-        // Top 3 podium
+
         if (leaderboard.length >= 3) _buildPodium(leaderboard, p),
         const SizedBox(height: 8),
-        // Rest of list
+
         Expanded(
           child: ListView.builder(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
@@ -451,13 +448,13 @@ class _FriendsScreenState extends State<FriendsScreen> with TickerProviderStateM
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          // 2nd place
+
           Expanded(child: _podiumItem(second, 2, 90, const Color(0xFFAEB6BF), p)),
           const SizedBox(width: 8),
-          // 1st place
+
           Expanded(child: _podiumItem(first, 1, 110, const Color(0xFFFFD700), p)),
           const SizedBox(width: 8),
-          // 3rd place
+
           Expanded(child: _podiumItem(third, 3, 75, const Color(0xFFCD7F32), p)),
         ],
       ),
@@ -468,7 +465,7 @@ class _FriendsScreenState extends State<FriendsScreen> with TickerProviderStateM
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Avatar
+
         Stack(
           alignment: Alignment.bottomCenter,
           clipBehavior: Clip.none,
@@ -532,7 +529,7 @@ class _FriendsScreenState extends State<FriendsScreen> with TickerProviderStateM
           ],
         ),
         const SizedBox(height: 8),
-        // Podium base
+
         Container(
           height: height,
           decoration: BoxDecoration(
@@ -571,7 +568,7 @@ class _FriendsScreenState extends State<FriendsScreen> with TickerProviderStateM
       ),
       child: Row(
         children: [
-          // Rank
+
           SizedBox(
             width: 30,
             child: Text(

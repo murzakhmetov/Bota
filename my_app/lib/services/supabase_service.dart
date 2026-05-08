@@ -1,4 +1,4 @@
-/// Offline hardcoded version - no internet required.
+
 class SupabaseService {
   static Future<void> initialize() async {}
 

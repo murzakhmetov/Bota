@@ -34,8 +34,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   late Animation<double> _glowAnim;
   String? _selectedLocationId;
   late ScrollController _scrollCtrl;
-  // Draggable AI FAB position
-  double _fabX = -1; // -1 means not initialized yet
+
+  double _fabX = -1;
   double _fabY = -1;
 
   @override
@@ -134,7 +134,6 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     final p = context.watch<GameProvider>();
     final locations = MapLocation.allLocations;
 
-    // Initialize FAB position once we have screen size
     final screenH = MediaQuery.of(context).size.height;
     final screenW = MediaQuery.of(context).size.width;
     if (_fabX < 0) {
@@ -153,7 +152,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
         ),
         child: Stack(
           children: [
-            // Scrollable path
+
             Positioned.fill(
               child: SingleChildScrollView(
                 controller: _scrollCtrl,
@@ -164,19 +163,19 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                 child: _buildPath(locations, p),
               ),
             ),
-            // Top bar
+
             Positioned(
               top: 0, left: 0, right: 0,
               child: SafeArea(child: _topBar(p)),
             ),
-            // Selected location panel - above bottom nav with extra spacing
+
             if (_selectedLocationId != null) _locationPanel(p),
-            // Bottom nav
+
             Positioned(
               bottom: 0, left: 0, right: 0,
               child: SafeArea(child: _bottomNav(p)),
             ),
-            // AI Assistant FAB - draggable
+
             Positioned(
               left: _fabX,
               top: _fabY,
@@ -248,7 +247,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   Widget _buildPath(List<MapLocation> locations, GameProvider p) {
     return Column(
       children: [
-        // Section title
+
         Padding(
           padding: const EdgeInsets.only(bottom: 24),
           child: Row(
@@ -286,7 +285,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             ],
           ),
         ),
-        // Path nodes
+
         ...List.generate(locations.length, (index) {
           final loc = locations[index];
           final isUnlocked = p.profile.unlockedLocations.contains(loc.id);
@@ -294,19 +293,18 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
           final isCompleted = isUnlocked && (p.profile.gameBestScores[loc.gameIds.first] ?? 0) > 0;
           final isCurrent = isUnlocked && !isCompleted;
 
-          // Zigzag offset
           final offsetX = (index % 3 == 0) ? 0.0 : (index % 3 == 1) ? 60.0 : -60.0;
 
           return Column(
             children: [
-              // Connector line to previous node
+
               if (index > 0) _buildConnector(
                 offsetFrom: (((index - 1) % 3 == 0) ? 0.0 : ((index - 1) % 3 == 1) ? 60.0 : -60.0),
                 offsetTo: offsetX,
                 isUnlocked: isUnlocked,
                 prevColor: locations[index - 1].color,
               ),
-              // Node
+
               Transform.translate(
                 offset: Offset(offsetX, 0),
                 child: _buildNode(loc, p, isUnlocked, isSelected, isCompleted, isCurrent),
@@ -314,7 +312,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             ],
           );
         }),
-        // End marker
+
         const SizedBox(height: 30),
         Column(
           children: [
@@ -421,7 +419,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Label above for selected
+
             if (isSelected)
               Container(
                 margin: const EdgeInsets.only(bottom: 8),
@@ -446,11 +444,11 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-            // Hexagonal node
+
             Stack(
               alignment: Alignment.center,
               children: [
-                // Glow effect for current
+
                 if (isCurrent)
                   AnimatedBuilder(
                     animation: _glowAnim,
@@ -469,7 +467,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                // Main hexagon
+
                 ClipPath(
                   clipper: _HexagonClipper(),
                   child: Container(
@@ -496,7 +494,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                // 3D border effect (bottom shadow)
+
                 Positioned(
                   bottom: -4,
                   child: ClipPath(
@@ -512,7 +510,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                 ),
               ],
             ),
-            // Name label below (when not selected)
+
             if (!isSelected)
               Container(
                 margin: const EdgeInsets.only(top: 10),
@@ -803,7 +801,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
           ),
         ),
         const SizedBox(width: 8),
-        // Language toggle in header
+
         GestureDetector(
           onTap: () => p.toggleLanguage(),
           child: Container(
@@ -1071,7 +1069,6 @@ class _PathPainter extends CustomPainter {
       ..strokeWidth = isUnlocked ? 6 : 4
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
-
 
     final path = Path();
     path.moveTo(fromX, 0);

@@ -93,7 +93,7 @@ class _GameCatchScreenState extends State<GameCatchScreen> {
         x: rng.nextDouble() * (screenW - 60) + 10,
         y: -50,
         image: image,
-        speed: 2.0 + rng.nextDouble() * 3.0,
+        speed: 6.0 + rng.nextDouble() * 5.0,
         isCandy: isCandy,
       ));
     });
@@ -311,7 +311,7 @@ class _GameCatchScreenState extends State<GameCatchScreen> {
 
   Widget _complete(GameProvider p) {
     int stars = _score >= 20 ? 3 : _score >= 12 ? 2 : 1;
-    int earned = 5 + _score + (stars == 3 ? 10 : 0);
+    int earned = 2 + (_score.clamp(0, 8)) + (stars == 3 ? 2 : 0);
     return Container(
       margin: const EdgeInsets.all(24), padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24),

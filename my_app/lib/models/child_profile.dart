@@ -9,7 +9,7 @@ class ChildProfile {
   List<String> unlockedLocations;
   DateTime? lastPlayDate;
   int dailyMinutesUsed;
-  int screenTimeLimit; // in minutes
+  int screenTimeLimit;
   int avatarIndex;
   String referralCode;
   int friendsInvited;
@@ -48,15 +48,15 @@ class ChildProfile {
   String get levelTitle {
     switch (level) {
       case 1:
-        return 'Жас Зерттеуші'; // Young Explorer
+        return 'Жас Зерттеуші';
       case 2:
-        return 'Білгір Бала'; // Knowledgeable Kid
+        return 'Білгір Бала';
       case 3:
-        return 'Батыл Саяхатшы'; // Brave Traveler
+        return 'Батыл Саяхатшы';
       case 4:
-        return 'Дана Жігіт'; // Wise One
+        return 'Дана Жігіт';
       case 5:
-        return 'Ұлы Зерттеуші'; // Great Explorer
+        return 'Ұлы Зерттеуші';
       default:
         return 'Жас Зерттеуші';
     }

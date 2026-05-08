@@ -321,7 +321,7 @@ class _GameQuizScreenState extends State<GameQuizScreen> {
           ],
         ),
         const SizedBox(height: 20),
-        // Learn material button
+
         GestureDetector(
           onTap: () => Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (_) => LearnScreen(locationName: widget.locationName)),

@@ -269,7 +269,7 @@ class _LearnScreenState extends State<LearnScreen> with TickerProviderStateMixin
         ),
         child: Column(
           children: [
-            // Category header
+
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -304,7 +304,7 @@ class _LearnScreenState extends State<LearnScreen> with TickerProviderStateMixin
                 ],
               ),
             ),
-            // Content
+
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
@@ -347,7 +347,7 @@ class _LearnScreenState extends State<LearnScreen> with TickerProviderStateMixin
                 ),
               ),
             ),
-            // Card number indicator
+
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: Row(
@@ -378,7 +378,7 @@ class _LearnScreenState extends State<LearnScreen> with TickerProviderStateMixin
     padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
     child: Row(
       children: [
-        // Previous button
+
         GestureDetector(
           onTap: _currentIndex > 0 ? _prevCard : null,
           child: Container(
@@ -399,7 +399,7 @@ class _LearnScreenState extends State<LearnScreen> with TickerProviderStateMixin
           ),
         ),
         const SizedBox(width: 12),
-        // Main button
+
         Expanded(
           child: GestureDetector(
             onTap: _currentIndex == _materials.length - 1 ? _startQuiz : _nextCard,

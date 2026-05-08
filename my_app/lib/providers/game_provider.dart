@@ -10,6 +10,7 @@ class GameProvider extends ChangeNotifier {
   bool _isRussian = true;
   bool _onboardingComplete = false;
   bool _parentModeActive = false;
+  bool _isLoaded = false;
   final String _parentPin = '1234';
   DateTime? _sessionStart;
   bool _screenTimeLimitReached = false;
@@ -19,6 +20,7 @@ class GameProvider extends ChangeNotifier {
   bool get onboardingComplete => _onboardingComplete;
   bool get parentModeActive => _parentModeActive;
   bool get screenTimeLimitReached => _screenTimeLimitReached;
+  bool get isLoaded => _isLoaded;
 
   String t(String kz, String ru) => _isRussian ? ru : kz;
 
@@ -52,6 +54,7 @@ class GameProvider extends ChangeNotifier {
       _isRussian = data['isRussian'] ?? true;
     }
     _checkDailyQuestReset();
+    _isLoaded = true;
     notifyListeners();
   }
 
@@ -139,7 +142,7 @@ class GameProvider extends ChangeNotifier {
 
   void redeemReferralCode(String code) {
     if (code.isNotEmpty) {
-      // Give the new user 15 botakoins for using a referral code
+
       addBotakoins(15);
     }
   }
@@ -149,7 +152,7 @@ class GameProvider extends ChangeNotifier {
       _profile.dailyQuestCompleted = true;
       final now = DateTime.now();
       _profile.lastDailyQuestDate = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
-      addBotakoins(20);
+      addBotakoins(30);
       _saveProfile();
       notifyListeners();
     }
@@ -189,9 +192,9 @@ class GameProvider extends ChangeNotifier {
       _profile.gameBestScores[gameId] = score;
     }
 
-    int earned = 5 + (correctAnswers * 2);
+    int earned = 2 + (correctAnswers.clamp(0, 8));
     if (score > best && best > 0) {
-      earned += 5; // bonus for beating personal best
+      earned += 2;
     }
     addBotakoins(earned);
 

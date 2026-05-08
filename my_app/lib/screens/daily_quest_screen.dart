@@ -153,7 +153,7 @@ class DailyQuestScreen extends StatelessWidget {
             ),
         ]),
         const SizedBox(height: 16),
-        // Reward info
+
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
@@ -169,13 +169,13 @@ class DailyQuestScreen extends StatelessWidget {
             ClipRRect(borderRadius: BorderRadius.circular(4),
               child: Image.asset('assets/coin/coin.jpeg', width: 16, height: 16, fit: BoxFit.cover)),
             const SizedBox(width: 4),
-            const Text('+20', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900, color: AppColors.primary)),
+            const Text('+30', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900, color: AppColors.primary)),
             const SizedBox(width: 4),
             Text(p.t('ботакоин', 'ботакоинов'), style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
           ]),
         ),
         const SizedBox(height: 16),
-        // Description
+
         Container(
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
@@ -194,7 +194,7 @@ class DailyQuestScreen extends StatelessWidget {
           ]),
         ),
         const SizedBox(height: 16),
-        // Start button
+
         GestureDetector(
           onTap: completed ? null : () {
             Navigator.push(context, MaterialPageRoute(

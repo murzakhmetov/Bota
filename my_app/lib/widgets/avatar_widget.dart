@@ -89,6 +89,39 @@ const List<AvatarData> kAvatars = [
   ),
 ];
 
+class ImageAvatarData {
+  final String imagePath;
+  final List<Color> gradientColors;
+  final String nameRu;
+  final String nameKz;
+  const ImageAvatarData({
+    required this.imagePath,
+    required this.gradientColors,
+    required this.nameRu,
+    required this.nameKz,
+  });
+}
+
+const List<ImageAvatarData> kImageAvatars = [
+  ImageAvatarData(
+    imagePath: 'assets/avatars/snow_leopard.png',
+    gradientColors: [Color(0xFFB0C4DE), Color(0xFF4A90D9)],
+    nameRu: 'Ирбис',
+    nameKz: 'Ырбыс',
+  ),
+];
+
+int get kTotalAvatars => kAvatars.length + kImageAvatars.length;
+
+bool isImageAvatar(int index) => index >= kAvatars.length;
+
+ImageAvatarData? getImageAvatar(int index) {
+  if (!isImageAvatar(index)) return null;
+  final imgIdx = index - kAvatars.length;
+  if (imgIdx >= kImageAvatars.length) return null;
+  return kImageAvatars[imgIdx];
+}
+
 class CartoonAvatar extends StatelessWidget {
   final int avatarIndex;
   final double size;
@@ -107,8 +140,42 @@ class CartoonAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final avatar = kAvatars[avatarIndex.clamp(0, kAvatars.length - 1)];
+    final clampedIndex = avatarIndex.clamp(0, kAvatars.length + kImageAvatars.length - 1);
 
+    if (isImageAvatar(clampedIndex)) {
+      final imgAvatar = getImageAvatar(clampedIndex)!;
+      return AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: (showBorder || isSelected)
+              ? Border.all(
+                  color: borderColor ?? (isSelected ? Colors.white : imgAvatar.gradientColors.first),
+                  width: isSelected ? 3.5 : 2.5,
+                )
+              : null,
+          boxShadow: [
+            BoxShadow(
+              color: imgAvatar.gradientColors.first.withValues(alpha: isSelected ? 0.5 : 0.3),
+              blurRadius: isSelected ? 16 : 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: ClipOval(
+          child: Image.asset(
+            imgAvatar.imagePath,
+            width: size,
+            height: size,
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    }
+
+    final avatar = kAvatars[clampedIndex];
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       width: size,

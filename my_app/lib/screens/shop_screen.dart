@@ -4,7 +4,6 @@ import '../providers/game_provider.dart';
 import '../theme/app_colors.dart';
 import '../services/supabase_service.dart';
 
-
 class ShopScreen extends StatefulWidget {
   const ShopScreen({super.key});
   @override

@@ -63,7 +63,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
         child: SafeArea(
           child: Column(children: [
             const SizedBox(height: 20),
-            // 3D model viewer - верхняя часть экрана
+
             Expanded(
               flex: 5,
               child: FadeTransition(
@@ -91,7 +91,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
               ),
             ),
             const SizedBox(height: 20),
-            // Текст приветствия
+
             Expanded(
               flex: 3,
               child: Padding(
@@ -195,10 +195,10 @@ class _ModelViewerWithFallbackState extends State<_ModelViewerWithFallback> {
   @override
   void initState() {
     super.initState();
-    // Give the WebView 5 seconds to start, otherwise show fallback
+
     Future.delayed(const Duration(seconds: 5), () {
       if (mounted) {
-        // We can't easily detect failure from outside, so just show model
+
       }
     });
   }

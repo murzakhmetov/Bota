@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../theme/app_colors.dart';
 import '../widgets/game_widgets.dart';
+import '../providers/game_provider.dart';
 import 'welcome_screen.dart';
 import 'onboarding_screen.dart';
+import 'map_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -48,8 +51,28 @@ class _SplashScreenState extends State<SplashScreen>
     _fadeController.forward();
     _scaleController.forward();
 
-    Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {
+    Future.delayed(const Duration(seconds: 3), () async {
+      if (!mounted) return;
+
+      final provider = context.read<GameProvider>();
+      while (!provider.isLoaded) {
+        await Future.delayed(const Duration(milliseconds: 50));
+        if (!mounted) return;
+      }
+      if (!mounted) return;
+
+      if (provider.onboardingComplete) {
+
+        Navigator.of(context).pushReplacement(
+          PageRouteBuilder(
+            pageBuilder: (_, __, ___) => const MapScreen(),
+            transitionsBuilder: (_, anim, __, child) =>
+                FadeTransition(opacity: anim, child: child),
+            transitionDuration: const Duration(milliseconds: 600),
+          ),
+        );
+      } else {
+
         Navigator.of(context).pushReplacement(
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) => WelcomeScreen(
