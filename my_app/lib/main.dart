@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'providers/game_provider.dart';
 import 'screens/splash_screen.dart';
 import 'services/supabase_service.dart';
@@ -10,6 +11,7 @@ import 'services/supabase_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
+
   try {
     await SupabaseService.initialize();
   } catch (_) {}
